@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_drawer/screens/home_page.dart';
-import 'package:flutter_application_drawer/screens/sign_up.dart';
+import 'package:clickToEat_main/screens/home_page.dart';
+import 'package:clickToEat_main/screens/sign_up.dart';
+import 'package:clickToEat_main/models/user.dart';
 
 class Signin extends StatefulWidget {
   const Signin({Key? key}) : super(key: key);
@@ -11,6 +12,7 @@ class Signin extends StatefulWidget {
 
 class _SigninState extends State<Signin> {
   final _formkey = GlobalKey<FormState>();
+  User? user;
 
   @override
   Widget build(BuildContext context) {
@@ -40,8 +42,11 @@ class _SigninState extends State<Signin> {
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please enter your email';
+              } else if (value != user!.name) {
+                return ' user name not found';
+              } else {
+                return null;
               }
-              return null;
             },
           ),
           TextFormField(
@@ -52,8 +57,11 @@ class _SigninState extends State<Signin> {
                 return 'Please enter password';
               } else if (int.parse(value) < 8) {
                 return 'Please enter a password longer than 8 characters';
+              } else if (value != user!.password) {
+                return ' user name not found';
+              } else {
+                return null;
               }
-              return null;
             },
           ),
           ElevatedButton(
