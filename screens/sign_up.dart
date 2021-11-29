@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_drawer/screens/home_page.dart';
-import 'package:flutter_application_drawer/screens/signin.dart';
+import 'package:clickToEat_main/screens/home_page.dart';
+import 'package:clickToEat_main/screens/signin.dart';
+import 'package:clickToEat_main/models/user.dart';
 
 class account extends StatefulWidget {
   const account({Key? key}) : super(key: key);
@@ -11,6 +12,11 @@ class account extends StatefulWidget {
 
 class _accountState extends State<account> {
   final _formkey = GlobalKey<FormState>();
+  TextEditingController name = TextEditingController();
+  TextEditingController password = TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController userName = TextEditingController();
+  TextEditingController phoneNumber = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +41,7 @@ class _accountState extends State<account> {
             height: 1,
           ),
           TextFormField(
+            controller: name,
             decoration:
                 InputDecoration(border: OutlineInputBorder(), hintText: 'Name'),
             validator: (value) {
@@ -45,6 +52,7 @@ class _accountState extends State<account> {
             },
           ),
           TextFormField(
+            controller: password,
             decoration: InputDecoration(
                 hintText: 'password', border: OutlineInputBorder()),
             validator: (value) {
@@ -57,6 +65,7 @@ class _accountState extends State<account> {
             },
           ),
           TextFormField(
+            controller: email,
             decoration: InputDecoration(
                 border: OutlineInputBorder(), hintText: 'Email'),
             validator: (value) {
@@ -67,6 +76,7 @@ class _accountState extends State<account> {
             },
           ),
           TextFormField(
+            controller: userName,
             decoration: InputDecoration(
                 border: OutlineInputBorder(), hintText: 'Username'),
             validator: (value) {
@@ -77,17 +87,26 @@ class _accountState extends State<account> {
             },
           ),
           TextFormField(
+            controller: phoneNumber,
             decoration: InputDecoration(
                 border: OutlineInputBorder(), hintText: 'Phone number'),
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'Please enter your phone';
+                return 'Please enter your phone number';
               }
               return null;
             },
           ),
           ElevatedButton(
               onPressed: () {
+                User user = new User(
+                  name.text,
+                  password.text,
+                  email.text,
+                  userName.text,
+                  int.parse(phoneNumber.text),
+                );
+
                 if (_formkey.currentState!.validate()) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Password')),
